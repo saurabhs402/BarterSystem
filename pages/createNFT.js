@@ -8,7 +8,9 @@ const {create} =require('ipfs-http-client')
 const projectId=process.env.PROJECT_ID
 const projectSecret=process.env.PROJECT_SECRET_KEY
 
-const auth= "Basic " + Buffer.from(projectId + ":" +projectSecret).toString("base64");
+
+
+const auth= "Basic " + Buffer.from("2WnfygVUnCRRQ0tSLUs93ROJHWo" + ":" +"dbdfe75c70f91e895bab3ef7ab8c2fcc").toString("base64");
 const client =create({
   host: "ipfs.infura.io",
   port:5001,
@@ -39,7 +41,7 @@ export default function CreateItem(){
           progress:(prog)=>console.log(`received:${prog}`)
         }
       )
-      const url=`http://saurabhs.infura-ipfs.io/ipfs/${added.path}`
+      const url=`http://saurabhss402.infura-ipfs.io/ipfs/${added.path}`
       setFileUrl(url)
     }catch(error){
       console.log("error uploading file, please try again:" ,error)
@@ -56,7 +58,7 @@ export default function CreateItem(){
    
     try{
       const added=await client.add(data)
-      const url=`http://saurabhs.infura-ipfs.io/ipfs/${added.path}`
+      const url=`http://saurabhss402.infura-ipfs.io/ipfs/${added.path}`
       console.log(url)
       createSale(url)
     }catch(error){

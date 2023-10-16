@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.8;
 
 
 // ERC721 token standard is for non fungible tokens
@@ -15,6 +15,8 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 //counters is a utility smart contract used for counting token items in blockchain.
+// import "./OpenZeppelin/contracts/utils/Counters.sol";
+// import "./OpenZeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract NFT is ERC721URIStorage {

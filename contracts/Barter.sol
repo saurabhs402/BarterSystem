@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.8;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -31,6 +31,7 @@ contract Barter is ReentrancyGuard{
         address payable seller;
 
         //owner of nft marketplace portal who gets listing fee
+        // this is because to list the nft on the webPage
         address payable owner;
         uint256 price;
         bool sold;
@@ -42,6 +43,8 @@ contract Barter is ReentrancyGuard{
     //Ethereum address with the associated value type.
     
     mapping(uint256 => Marketitem) private idToMarketItem;
+    
+    // mapping(address => MarketItem) private addressToMarketItem;
 
 
 
@@ -72,6 +75,9 @@ contract Barter is ReentrancyGuard{
         uint256 price,
         bool sold
     );
+    event MessageSender(
+        address indexed s
+    );
 
     function getListingPrice() public view returns (uint256) {
         return listingPrice;
@@ -96,21 +102,24 @@ contract Barter is ReentrancyGuard{
        _itemIds.increment();
        uint256 itemId= _itemIds.current();
 
-       idToMarketItem[itemId] = Marketitem(
+  
+
+       idToMarketItem[itemId] =Marketitem(     // MarketItem is a Structure 
+                                                // IdToMArket is a Mapping
            itemId,
            nftContract,
            tokenId,
            payable(msg.sender),
+
            payable(address(0)),
+
            price,
            false
        ); 
 
+    //    addressToMarketItem[itemId]=item; 
 
-
-
-    
-        IERC721(nftContract).transferFrom(msg.sender,address(this),tokenId);  
+        IERC721(nftContract).approve(address(this),tokenId);  
 
         //this refers to the instance of the contract where the call is made 
         //(you can have multiple instances of the same contract).
@@ -156,12 +165,15 @@ contract Barter is ReentrancyGuard{
         //in the next line we transfer nft ownership from the seller to buyer
         //the msg.sender is buyer since he is creating the function call which 
         //will be used to buy the nft
-        IERC721(nftContract).transferFrom(address(this),msg.sender,tokenId);
+        IERC721(nftContract).transferFrom(idToMarketItem[itemId].seller,msg.sender,tokenId);
 
         //owner is paying money and status of nft gets updated to sold
         //the sold variable is a state variable and its state is stored in blockchain 
         //and gets updated once secure transaction is made
-        idToMarketItem[itemId].owner = payable(msg.sender);
+
+        //idToMarketItem[itemId].owner = payable(msg.sender); latest change
+        idToMarketItem[itemId].seller=payable(msg.sender);
+
         idToMarketItem[itemId].sold=true;
         _itemsSold.increment();
         payable(owner).transfer(listingPrice);
@@ -198,7 +210,7 @@ contract Barter is ReentrancyGuard{
 
         for (uint i=0;i<totalItemCount;i++)
         {
-            if(idToMarketItem[i+1].owner==msg.sender){
+            if(idToMarketItem[i+1].seller==msg.sender){
                 itemCount+=1;
                 
                 }
@@ -206,7 +218,7 @@ contract Barter is ReentrancyGuard{
             Marketitem[] memory items=new Marketitem[](itemCount);
             for(uint i=0;i<totalItemCount;i++)
             {
-                if(idToMarketItem[i+1].owner==msg.sender){
+                if(idToMarketItem[i+1].seller==msg.sender){
                     uint currentId=i+1;
                     Marketitem storage currentItem = idToMarketItem[currentId];
                     items[currentIndex]=currentItem;
@@ -215,6 +227,9 @@ contract Barter is ReentrancyGuard{
 
                 }
             }
+            // emit MessageSender(
+            //     msg.sender
+            // );
             return items;
     }
     
@@ -245,6 +260,56 @@ contract Barter is ReentrancyGuard{
         }
         return items;
     }
+
+  function exchangeNFT(address nftContractWhoWantsToSell,
+        uint256 itemId) public payable nonReentrant {
+        
+        uint tokenIdWhoWantsToSell=idToMarketItem[itemId].tokenId;
+
+        uint totalItemCount=_itemIds.current();
+        address whoWantsToSell=idToMarketItem[itemId].seller;
+       // uint itemCount=0;
+       // uint currentIndex=0;
+
+        for (uint i=1;i<=totalItemCount;i++)
+        {
+            if(idToMarketItem[i].seller==msg.sender){
+                
+                 address nftContractWhoWantsToExchange=idToMarketItem[i].nftContract;
+                 uint tokenIdWhoWantsToExchange=idToMarketItem[i].tokenId;
+                 address whoWantsToExchange=idToMarketItem[i].seller;
+
+                IERC721(nftContractWhoWantsToSell).transferFrom(idToMarketItem[itemId].seller,nftContractWhoWantsToExchange,tokenIdWhoWantsToSell);
+
+
+
+                IERC721(nftContractWhoWantsToExchange).transferFrom(idToMarketItem[i].seller,nftContractWhoWantsToSell,tokenIdWhoWantsToExchange);
+
+             
+
+                idToMarketItem[itemId].seller=payable(whoWantsToExchange);
+
+                idToMarketItem[i].seller=payable(whoWantsToSell);
+                
+
+                 break;
+                }
+        }
+        //  Marketitem[] memory items=new Marketitem[](itemCount);
+
+        //   for(uint i=1;i<=totalItemCount;i++)
+        //     {
+        //         if(idToMarketItem[i].owner==msg.sender){
+        //             uint currentId=i;
+        //             Marketitem storage currentItem = idToMarketItem[currentId];
+        //             items[currentIndex]=currentItem;
+        //             currentIndex+=1;
+
+
+        //         }
+        //     }
+   
+   }
 
 
 }

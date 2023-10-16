@@ -53,10 +53,15 @@ export default function Home(){
         const provider=new ethers.providers.Web3Provider(connection)
 
         const signer=provider.getSigner()
-        const contract=new ethers.Contract(barteraddress,Barter.abi,signer)
+        const bContract=new ethers.Contract(barteraddress,Barter.abi,signer)
+        
         const price=ethers.utils.parseUnits(nft.price.toString(),'ether')
-        const transaction=await contract.createMarketSale(nftaddress,nft.tokenId,{
-            value:price
+
+        // const transaction=await bContract.createMarketSale(nftaddress,nft.tokenId,{
+        //     value:price
+        // })
+         const transaction=await bContract.exchangeNFT(nftaddress,nft.tokenId,{
+            gasLimit:2800000
         })
         await transaction.wait()
         loadNFTs()  

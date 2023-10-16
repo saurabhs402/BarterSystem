@@ -5,7 +5,7 @@ describe("NFTMarket",async function(){
 
    it("Deploy the Smart contracts on blockchain,mint new nfts,sell a NFT and make transactions on blockchain",
    async function(){
-      const _nftMarketContract=await ethers.getContractFactory("NFTMarket");
+      const _nftMarketContract=await ethers.getContractFactory("Barter");
       const NFTMarket=await _nftMarketContract.deploy();
       // No such need of this await NFTMarket.deployed();
 

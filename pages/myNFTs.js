@@ -29,7 +29,9 @@ import {
         const marketContract = new ethers.Contract(barteraddress,Barter.abi,signer)
         const tokenContract = new ethers.Contract(nftaddress,NFT.abi,provider)
 
-        const data = await marketContract.fetchMyNFTs()
+        const data= await marketContract.fetchMyNFTs()
+        // console.log(typeof(data))
+        // console.log(data.mSender)
 
         const items = await Promise.all(data.map(async i => {
           const tokenUri = await tokenContract.tokenURI(i.tokenId)
@@ -49,7 +51,7 @@ import {
         setLoadingState('loaded') 
       }
      if (loadingState ==='loaded' && !nfts.length) return(
-         <h1 className="py-10 px-20 text-3xl">No assets owned</h1>
+         <h1 className="py-10 px-20 text-3xl">Having no assets</h1>
 
      )
      return(
