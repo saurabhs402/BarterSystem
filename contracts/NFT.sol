@@ -70,4 +70,12 @@ contract NFT is ERC721URIStorage {
        return newItemId;
        
    } 
+
+    function updateTokenURI(uint tokenId,string memory tokenURI) public{
+
+        _setTokenURI(tokenId,tokenURI);
+
+    }
+
+
 }

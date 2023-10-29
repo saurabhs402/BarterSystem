@@ -60,8 +60,11 @@ function Marketplace({Component,pageProps}){
               <a href="/myNFTs" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white mr-4">
                 My NFT's
               </a>
-              <a href="/dashboard" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white">
+              <a href="/dashboard" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white mr-4">
                 DashBoard
+              </a>
+                <a href="/nftRequests" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white">
+                Requests
               </a>
             </div>
           </div>

@@ -10,7 +10,7 @@ const projectSecret=process.env.PROJECT_SECRET_KEY
 
 
 
-const auth= "Basic " + Buffer.from("2WnfygVUnCRRQ0tSLUs93ROJHWo" + ":" +"dbdfe75c70f91e895bab3ef7ab8c2fcc").toString("base64");
+const auth= "Basic " + Buffer.from("2WsskFWapjHPkdHRuUrxWKuKITs" + ":" +"6aa70ca5d74fc2ae48315675656f8ff9").toString("base64");
 const client =create({
   host: "ipfs.infura.io",
   port:5001,
@@ -49,16 +49,23 @@ export default function CreateItem(){
   }
 
   async function CreateMarket(){
+    console.log("CreateMarket");
     const {name,description,price}=formInput
+    console.log(fileUrl)
     if(!name||!description||!price||!fileUrl) return
-
+    console.log("after return");
+    const list=[];
     const data=JSON.stringify({
-      name,description,image:fileUrl
+      name,description,list,image:fileUrl
     })
    
     try{
+      console.log("try")
       const added=await client.add(data)
+       console.log("try2")
       const url=`http://saurabhss402.infura-ipfs.io/ipfs/${added.path}`
+       console.log("try3")
+     
       console.log(url)
       createSale(url)
     }catch(error){
@@ -67,6 +74,7 @@ export default function CreateItem(){
   }
 
   async function createSale(url){
+    console.log("CreateSale");
     const web3Modal=new Web3Modal()
     const connection=await web3Modal.connect()
     const provider=new ethers.providers.Web3Provider(connection)
