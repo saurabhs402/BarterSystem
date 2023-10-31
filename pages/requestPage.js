@@ -3,6 +3,7 @@ import Web3Modal from 'web3modal'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import {withRouter} from 'next/router'
+import {useRouter} from 'next/router'
 import styles from '../styles/Home.module.css';
 
 import { useSearchParams } from 'next/navigation'
@@ -33,10 +34,15 @@ import {
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import Barter from '../artifacts/contracts/Barter.sol/Barter.json'
 
-export default function requestPage(props) {
+export default function requestPage() {
     const searchParams = useSearchParams()
-    console.log(searchParams.get('data'))
-    console.log('line break')
+    const router = useRouter();
+    // console.log(searchParams.get('data'))
+    // console.log('line break')
+    // const paramsData = searchParams.get('data')
+    // const dataJSON = JSON.parse(paramsData)
+    // console.log(dataJSON)
+
     const [nfts,setNfts]=useState([]) 
     const [loadingState,setLoadingState] = useState('not-loaded')
 
@@ -66,6 +72,11 @@ export default function requestPage(props) {
             let item = {
                 price,
                 tokenId: i.tokenId.toNumber(),
+
+                // ******** CHANGED PART ********  added 'list' to the item object
+                list: meta.data.list,
+                // ******** CHANGED PART ********
+
                 seller: i.seller,
                 owner: i.owner,
                 image: meta.data.image,
@@ -88,48 +99,65 @@ export default function requestPage(props) {
         const signer = provider.getSigner()
 
 
-        const marketContract = new ethers.Contract(barteraddress,Barter.abi,signer)
-        const tokenContract = new ethers.Contract(nftaddress,NFT.abi,provider)
-
-
-
+        // const marketContract = new ethers.Contract(barteraddress,Barter.abi,signer)
+        const tokenContract = new ethers.Contract(nftaddress,NFT.abi,signer)
+        
       
-        const itemSelected= searchParams.get('data');
-        console.log(itemSelected)
-        const itemS=JSON.parse(itemSelected);
+        const itemHome=searchParams.get('data');
+
+        console.log(itemHome)
+        const itemHJ=JSON.parse(itemHome);
 
         console.log('terminate')
 
 
 
-
-        const tokenUri = await tokenContract.tokenURI(itemS.tokenId)
+        // ******** CHANGED PART ********
+        const tokenUri = await tokenContract.tokenURI(itemHJ.tokenId)
         const meta = await axios.get(tokenUri)
-        console.log(meta.data)
+
+        console.log(typeof(meta.data))
 
         console.log("\n\n line break")
 
-        console.log(meta.data.list)
         meta.data.list.push(nft);
-
-        
-                try{
-                console.log("try")
-                const added=await client.add(meta.data)
-                console.log("try2")
-                const url=`http://saurabhss402.infura-ipfs.io/ipfs/${added.path}`
-                console.log("try3")
-                
-                console.log(url)
-                createSale(url)
-                }catch(error){
-                console.log('error uploading file:',error)
-                }
-
-    tokenContract.updateTokenURI(itemS.tokenId,url);
+        console.log(meta.data.list)
+        // ******** CHANGED PART ********
 
 
-}
+        // ******** CHANGED PART ********
+        try{
+            console.log("uploading data to infura")
+            const added = await client.add(JSON.stringify(meta.data))
+            console.log("uploaded to infura")
+
+            const url=`http://saurabhss402.infura-ipfs.io/ipfs/${added.path}` 
+
+            console.log(url)
+
+            console.log("\n\n\n\n");
+            console.log("updating URI")
+            const beforeURI=await tokenContract.tokenURI(itemHJ.tokenId);
+
+            console.log("beforeURI "+beforeURI);
+            
+           const transaction= await tokenContract.updateTokenURI(itemHJ.tokenId,url);
+           await transaction.wait()
+
+            const afterURI=await tokenContract.tokenURI(itemHJ.tokenId);
+
+
+            console.log("afterURI "+afterURI);
+
+        }
+        catch(error){
+            console.log('error uploading file:',error)
+        }
+        // ******** CHANGED PART ********
+
+        router.push('/');
+
+    }
 
 
     if (loadingState ==='loaded' && !nfts.length) return(

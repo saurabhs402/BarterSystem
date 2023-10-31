@@ -27,20 +27,23 @@ export default function Home(){
         const barterContract=new ethers.Contract(barteraddress,Barter.abi,provider)
         const data =await barterContract.fetchMarketItems()
 
-        const items=await Promise.all(data.map(async i=>{
+        const items=await Promise.all(data.map(async i => {
             const tokenUri=await nftContract.tokenURI(i.tokenId) 
             console.log("hii");
             console.log(tokenUri);
             console.log("hii");
             
             const meta=await axios.get(tokenUri)
-            console.log(meta.data.list.length)
+            console.log(meta.data)
             let price=ethers.utils.formatUnits(i.price.toString(),'ether')
             let item={
                 price,
                 tokenId:i.tokenId.toNumber(),
                 seller:i.seller,
                 owner:i.owner,
+                // ******** CHANGED PART ********   added 'list' to the item object
+                list: meta.data.list,
+                // ******** CHANGED PART ********
                 image: meta.data.image,
                 name: meta.data.name,
                 description: meta.data.description,
@@ -79,6 +82,31 @@ export default function Home(){
     //     //     pathname:'/requestPage',
     //     //     query:{item:JSON.stringify(nft)}
     //     //     },'/requestPage')
+
+    //     const nftString = JSON.stringify(nft)
+    //     navigate('/requestPage', {state: {item: nftString}})
+
+    //     const web3Modal=new Web3Modal()
+    //     const connection =await web3Modal.connect()
+    //     const provider=new ethers.providers.Web3Provider(connection)
+
+    //     const signer=provider.getSigner()
+    //     const bContract=new ethers.Contract(barteraddress,Barter.abi,signer)
+        
+    //     const price=ethers.utils.parseUnits(nft.price.toString(),'ether')
+
+    //     // const transaction=await bContract.createMarketSale(nftaddress,nft.tokenId,{
+    //     //     value:price
+    //     // })
+    //      const transaction=await bContract.exchangeNFT(nftaddress,nft.tokenId,{
+    //         gasLimit:2800000
+    //     })
+    //     await transaction.wait()
+    //     loadNFTs()  
+    // }
+
+     // async function acceptNFT(nft){
+        
 
     //     const nftString = JSON.stringify(nft)
     //     navigate('/requestPage', {state: {item: nftString}})

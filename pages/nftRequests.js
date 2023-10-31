@@ -61,7 +61,7 @@ export default function nftRequests() {
             const meta = await axios.get(tokenUri)
             let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
 
-            console.log(meta.list)
+            console.log(meta.data.list)
             console.log("\n")
 
             let item = {
