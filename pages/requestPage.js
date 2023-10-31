@@ -137,12 +137,13 @@ export default function requestPage() {
 
             console.log("\n\n\n\n");
             console.log("updating URI")
+            
             const beforeURI=await tokenContract.tokenURI(itemHJ.tokenId);
 
             console.log("beforeURI "+beforeURI);
             
-           const transaction= await tokenContract.updateTokenURI(itemHJ.tokenId,url);
-           await transaction.wait()
+            const transaction= await tokenContract.updateTokenURI(itemHJ.tokenId,url);
+            await transaction.wait()
 
             const afterURI=await tokenContract.tokenURI(itemHJ.tokenId);
 

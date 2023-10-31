@@ -310,6 +310,37 @@ contract Barter is ReentrancyGuard{
    
    }
 
+     function acceptNFT(address nftContract,
+        uint256 itemId1,uint256 itemId2) public payable nonReentrant {
+        
+        uint tokenIdWhoWantsToSell=idToMarketItem[itemId1].tokenId;
+
+        address whoWantsToSell=idToMarketItem[itemId1].seller;
+
+                uint tokenIdWhoWantsToExchange=itemId2;
+                address whoWantsToExchange=idToMarketItem[itemId2].seller;
+
+
+                IERC721(nftContract).transferFrom(whoWantsToSell,whoWantsToExchange,tokenIdWhoWantsToSell);
+
+
+
+                IERC721(nftContract).transferFrom(whoWantsToExchange,whoWantsToSell,tokenIdWhoWantsToExchange);
+
+
+
+                idToMarketItem[itemId1].seller=payable(whoWantsToExchange);
+
+                idToMarketItem[itemId2].seller=payable(whoWantsToSell);
+                
+
+                 
+                
+        }
+  
+   
+   
+
 
 }
 
