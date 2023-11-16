@@ -104,7 +104,8 @@ export default function nftRequests() {
 
          const currTokenUri=await tokenContract.tokenURI(currNft.tokenId)
          const itemsStokenId=currNft.tokenId;
-
+  
+         // first time added gas limit
          const transaction=await bContract.acceptNFT(nftaddress,currNft.tokenId,exNft.tokenId,{
             gasLimit:2800000
         })

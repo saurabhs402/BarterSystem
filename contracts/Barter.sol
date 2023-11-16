@@ -186,12 +186,14 @@ contract Barter is ReentrancyGuard{
     //we will use this function on the home page of nft marketplace
     function fetchMarketItems() public view returns (Marketitem[] memory){
         uint itemCount = _itemIds.current();
-        uint unsoldItemCount= _itemIds.current() - _itemsSold.current();
+        // uint unsoldItemCount= _itemIds.current() - _itemsSold.current();
+
         uint currentIndex=0;
 
-        Marketitem[] memory items = new Marketitem[](unsoldItemCount);
+        // Marketitem[] memory items = new Marketitem[](unsoldItemCount);
+         Marketitem[] memory items = new Marketitem[](itemCount);
         for(uint i=0; i< itemCount;i++){
-            if(idToMarketItem[i+1].owner==address(0)){
+            if(idToMarketItem[i+1].owner==address(0)){   // if(idToMarketItem[i+1].owner==address(0)){
                 uint currentId=idToMarketItem[i+1].itemId;
                 Marketitem storage currentItem=idToMarketItem[currentId];
                 items[currentIndex]=currentItem;

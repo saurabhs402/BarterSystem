@@ -23,6 +23,8 @@ export default function Home(){
 
     async function loadNFTs(){
         const provider= new ethers.providers.JsonRpcProvider()
+        
+
         const nftContract=new ethers.Contract(nftaddress,NFT.abi,provider)
         const barterContract=new ethers.Contract(barteraddress,Barter.abi,provider)
         const data =await barterContract.fetchMarketItems()
@@ -67,8 +69,11 @@ export default function Home(){
         
         const price=ethers.utils.parseUnits(nft.price.toString(),'ether')
 
+
+        // big Number exception=> gas limit
         const transaction=await bContract.createMarketSale(nftaddress,nft.tokenId,{
-            value:price
+            value:price,
+            gasLimit:2800000
         })
         await transaction.wait()
         loadNFTs()  
