@@ -70,13 +70,11 @@ export default function requestPage() {
             const meta = await axios.get(tokenUri)
             let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
             let item = {
+                name: meta.data.name,
+                description: meta.data.description,
                 price,
                 tokenId: i.tokenId.toNumber(),
-
-                // ******** CHANGED PART ********  added 'list' to the item object
                 list: meta.data.list,
-                // ******** CHANGED PART ********
-
                 seller: i.seller,
                 owner: i.owner,
                 image: meta.data.image,
@@ -168,7 +166,7 @@ export default function requestPage() {
     return(
         <div className="flex justify-center">
             <div className="p-4">
-                <div className="grid grid-cols-4 gap-5 pt-6">
+                {/* <div className="grid grid-cols-4 gap-5 pt-6">
                     {
                 nfts.map((nft,i) => (
                     <div key={i} className="border shadow rounded-xl overflow-hidden">
@@ -182,7 +180,31 @@ export default function requestPage() {
                     </div>
                 ))
                 }
+                </div> */}
+
+                <h2 className="px-10 py-10 text-2xl font-bold flex justify-center text-cyan-200">Select the NFT with which you would like to exchnage</h2>
+                <div className="grid grid-cols-4 gap-5 pt-6">
+                    {
+                        nfts.map((nft,i) => (
+                            <div key={i} className="border shadow rounded-xl overflow-hidden">
+                                <img className={styles['nft-image']} src={nft.image}    />
+                                <div className="p-4 bg-gray-900">
+                                    <p className="text-xl font-bold text-white">
+                                        Name - {nft.name}
+                                    </p>
+                                    <p className="text-xl font-bold text-white">
+                                        Description - {nft.description}
+                                    </p>
+                                    <p className="text-xl font-bold text-white">
+                                        Price - {nft.price} Eth
+                                    </p>
+                                </div>
+                                <button className="w-full bg-purple-600 text-white font-bold py-2 px-12 rounded" onClick={()=>sendRequest(nft)}>Request Exchange</button>
+                            </div>
+                        ))
+                    }
                 </div>
+                
             </div>
         </div>
     )

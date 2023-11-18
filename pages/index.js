@@ -15,7 +15,7 @@ import Barter from "../artifacts/contracts/Barter.sol/Barter.json"
 export default function Home(){
     const [nfts,setNFts]=useState([])
     const [loadingState,setLoadingState]=useState('not-loaded')
-    const router = useRouter();
+
 
     useEffect(()=>{
         loadNFTs()
@@ -43,9 +43,7 @@ export default function Home(){
                 tokenId:i.tokenId.toNumber(),
                 seller:i.seller,
                 owner:i.owner,
-                // ******** CHANGED PART ********   added 'list' to the item object
                 list: meta.data.list,
-                // ******** CHANGED PART ********
                 image: meta.data.image,
                 name: meta.data.name,
                 description: meta.data.description,
@@ -150,34 +148,63 @@ export default function Home(){
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-5">
                   {
                     nfts.map((nft,i)=>(
-                        <div key={i} className="border shadow rounded-3xl overflow-hidden">
-                            <img src={nft.image}/>
-                            <div className="p-4">
-                                <p style={{height:'64px'}} className="text-2xl font-semibold">{nft.name}</p>
-                                <div style={{height:'70px', overflow:"hidden"}}>
-                                    <p className="text-gray-400">{nft.description}</p>
-                                </div>
-                            </div>
 
-                            <div className='p-4 bg-blue'>
-                                <p className='text-2xl mb-4 font-bold text-white'>{nft.price} ETH</p>
-                                <button className="w-full bg-blue-600 text-white font-bold m-1 py-2 px-12 rounded" 
-                                onClick={()=>buyNFT(nft)}>Buy</button>
-                                {/* <button className="w-full bg-purple-600 text-white font-bold m-1 py-2 px-12 rounded" 
-                                onClick={()=>exchangeNFT(nft)}>Exchange</button> */}
-                                <Link 
-                                className="w-full bg-purple-600 text-white font-bold m-1 py-2 px-12 rounded"
-                                href={{
-                                    pathname: '/requestPage',
-                                    query: {
-                                        data: JSON.stringify(nft),
-                                    },
-                                }}
-                                >
-                                Exchange
-                                </Link>
+                        // <div key={i} className="border shadow rounded-3xl overflow-hidden">
+                        //     <img src={nft.image}/>
+                        //     <div className="p-4">
+                        //         <p style={{height:'64px'}} className="text-2xl font-semibold">{nft.name}</p>
+                        //         <div style={{height:'70px', overflow:"hidden"}}>
+                        //             <p className="text-gray-400">{nft.description}</p>
+                        //         </div>
+                        //     </div>
+
+                        //     <div className='p-4 bg-blue'>
+                        //         <p className='text-2xl mb-4 font-bold text-white'>{nft.price} ETH</p>
+                        //         <button className="w-full bg-blue-600 text-white font-bold m-1 py-2 px-12 rounded" 
+                        //         onClick={()=>buyNFT(nft)}>Buy</button>
+                        //         {/* <button className="w-full bg-purple-600 text-white font-bold m-1 py-2 px-12 rounded" 
+                        //         onClick={()=>exchangeNFT(nft)}>Exchange</button> */}
+                        //         <Link 
+                        //         className="w-full bg-purple-600 text-white font-bold m-1 py-2 px-12 rounded"
+                        //         href={{
+                        //             pathname: '/requestPage',
+                        //             query: {
+                        //                 data: JSON.stringify(nft),
+                        //             },
+                        //         }}
+                        //         >
+                        //         Exchange
+                        //         </Link>
+                        //     </div>
+                        // </div>
+
+                        <Link
+                            key={i} 
+                            href={{
+                                pathname: '/product',
+                                query: {
+                                    data: JSON.stringify(nft),
+                                },
+                            }}
+                        >
+                            <div className="border shadow rounded-3xl overflow-hidden">
+
+                                <img src={nft.image} style={{height:'300px', width: '400px'}}/>
+
+                                <div className="p-4 bg-gray-900">
+
+                                    <p style={{height:'64px'}} className="text-3xl font-semibold text-cyan-200">{nft.name}</p>
+
+                                    <div style={{height:'70px', overflow:"hidden"}}>
+                                        <p className="text-l text-gray-300">{nft.description}</p>
+                                    </div>
+
+                                    <p className='text-2xl my-4 font-bold text-white'>{nft.price} ETH</p>
+                                    
+                                </div>
+
                             </div>
-                        </div>
+                        </Link>
                     ))
                   }
                 </div>

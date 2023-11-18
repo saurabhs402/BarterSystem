@@ -67,6 +67,8 @@ export default function nftRequests() {
             console.log("\n")
 
             let item = {
+                name: meta.data.name,
+                description: meta.data.description,
                 price,
                 tokenId: i.tokenId.toNumber(),
                 seller: i.seller,
@@ -163,19 +165,28 @@ export default function nftRequests() {
 
 
     if (loadingState ==='loaded' && !nfts.length) return(
-        <h1 className="py-10 px-20 text-3xl">Having no assets</h1>
+        <div className="flex justify-center items-center min-h-screen">
+            <h1 className="px-10 py-10 text-2xl font-bold flex justify-center text-cyan-200">No Pending Requests</h1>
+        </div>
+        
     )
 
     return(
-        <div className="flex justify-center">
+        <div className="flex justify-center min-h-screen">
             <div className="p-4">
                 <div className="flex flex-col gap-5">
                     {
                         nfts.map((nft,i) => (
                             <div className="grid grid-cols-4 gap-5 py-3 border">
                                 <div key={i} className="border shadow rounded-xl overflow-hidden mr-5">
-                                    <img className={styles['nft-image']} src={nft.image}    />
+                                    <img className={styles['nft-image']} style={{height:'300px', width: '400px'}} src={nft.image}    />
                                     <div className="p-4 bg-black">
+                                        <p className="text-xl font-bold text-white">
+                                            Name - {nft.name}
+                                        </p>
+                                        <p className="text-xl font-bold text-white">
+                                            Description - {nft.description}
+                                        </p>
                                         <p className="text-xl font-bold text-white">
                                             Price - {nft.price} Eth
                                         </p>
@@ -189,8 +200,14 @@ export default function nftRequests() {
                                 {
                                     nft.list.map((exNft,ind) => (
                                         <div key={ind} className="border shadow rounded-xl overflow-hidden">
-                                            <img className={styles['nft-image']} src={exNft.image}    />
+                                            <img className={styles['nft-image']} style={{height:'300px', width: '400px'}} src={exNft.image}    />
                                             <div className="p-4 bg-black">
+                                                <p className="text-xl font-bold text-white">
+                                                    Name - {exNft.name} Eth
+                                                </p>
+                                                <p className="text-xl font-bold text-white">
+                                                    Description - {exNft.description} Eth
+                                                </p>
                                                 <p className="text-xl font-bold text-white">
                                                     Price - {exNft.price} Eth
                                                 </p>

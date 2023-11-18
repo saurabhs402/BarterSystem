@@ -35,6 +35,8 @@ export default function CreatorDashboard() {
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
       let item = {
+        name: meta.data.name,
+        description: meta.data.description,
         price,
         tokenId: i.tokenId.toNumber(),
         seller: i.seller,
@@ -50,17 +52,18 @@ export default function CreatorDashboard() {
     setNfts(items)
     setLoadingState('loaded') 
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl">No assets created</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-10 py-10 text-2xl font-bold flex justify-center text-cyan-200">No Assets Created</h1>)
   return (
     <div>
       <div className="p-4">
-        <h2 className="text-2xl py-2">Items Created</h2>
+        <h2 className="text-3xl py-2 text-cyan-200">Items Created</h2>
         <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-4 gap-6 pt-5">
           {
             nfts.map((nft, i) => (
               <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} className={styles['nft-image']}/>
-                <div className="p-4 bg-black">
+                <img src={nft.image} className={styles['nft-image']} style={{height:'300px', width: '400px'}}/>
+                <div className="p-4 bg-gray-900">
+                  <p className="text-2xl font-bold text-white">Name - {nft.name}</p>
                   <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
                 </div>
               </div>
@@ -77,8 +80,9 @@ export default function CreatorDashboard() {
                 {
                   sold.map((nft, i) => (
                     <div key={i} className="border shadow rounded-xl overflow-hidden">
-                      <img className={styles['nft-image']} src={nft.image}/>
+                      <img className={styles['nft-image']} style={{height:'300px', width: '400px'}} src={nft.image}/>
                       <div className="p-4 bg-black">
+                        <p className="text-2xl font-bold text-white">Name - {nft.name}</p>
                         <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
                       </div>
                     </div>

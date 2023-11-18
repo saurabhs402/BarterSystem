@@ -43,6 +43,8 @@ import {
             seller: i.seller,
             owner: i.owner,
             image: meta.data.image,
+            name: meta.data.name,
+            description: meta.data.description,
         
           }
           return item
@@ -51,21 +53,27 @@ import {
         setLoadingState('loaded') 
       }
      if (loadingState ==='loaded' && !nfts.length) return(
-         <h1 className="py-10 px-20 text-3xl">Having no assets</h1>
+        <div className="flex justify-center items-center min-h-screen">
+            <h1 className="px-10 py-10 text-2xl font-bold flex justify-center text-cyan-200">No Assests Available</h1>
+        </div>
+         
 
      )
      return(
-         <div className="flex justify-center">
+         <div className="flex justify-center min-h-screen">
              <div className="p-4">
                  <div className="grid grid-cols-4 gap-5 pt-6">
                      {
                     nfts.map((nft,i) => (
                      <div key={i} className="border shadow rounded-xl overflow-hidden">
-                         <img className={styles['nft-image']} src={nft.image}    />
-                         <div className="p-4 bg-black">
-                             <p className="text-xl font-bold text-white">
-                                 Price - {nft.price} Eth
-                             </p>
+                         <img className={styles['nft-image']} style={{height:'300px', width: '400px'}} src={nft.image}    />
+                         <div className="p-4 bg-gray-900">
+                            <p className="text-xl font-bold text-white">
+                                Name - {nft.name} 
+                            </p>
+                            <p className="text-xl font-bold text-white">
+                                Price - {nft.price} Eth
+                            </p>
                          </div>
                      </div>
                  ))

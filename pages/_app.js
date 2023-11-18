@@ -5,7 +5,7 @@ function Marketplace({Component,pageProps}){
 
    return(
 
-    <div className="flex-col justify-center items-center bg-gray-800">
+    <div className="flex-col justify-center items-center bg-gray-700">
       {/* <nav>
         <p classNameName="text-4xl font-bold flex justify-center text-cyan-200">
           Smart Barter System
@@ -51,19 +51,19 @@ function Marketplace({Component,pageProps}){
 
           <div className="flex items-center w-auto">
             <div className="text-sm flex-grow">
-              <a href="/" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white mr-4">
+              <a href="/" className="mt-4 inline-block text-teal-200 hover:text-white mr-4">
                 Home
               </a>
-              <a href="/createNFT" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white mr-4">
+              <a href="/createNFT" className="mt-4 inline-block text-teal-200 hover:text-white mr-4">
                 Register Product
               </a>
-              <a href="/myNFTs" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white mr-4">
+              <a href="/myNFTs" className="mt-4 inline-block text-teal-200 hover:text-white mr-4">
                 My NFT's
               </a>
-              <a href="/dashboard" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white mr-4">
+              {/* <a href="/dashboard" className="mt-4 inline-block text-teal-200 hover:text-white mr-4">
                 DashBoard
-              </a>
-                <a href="/nftRequests" className="block mt-4 inline-block mt-0 text-teal-200 hover:text-white">
+              </a> */}
+                <a href="/nftRequests" className="mt-4 inline-block text-teal-200 hover:text-white">
                 Requests
               </a>
             </div>
