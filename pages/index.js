@@ -135,7 +135,7 @@ export default function Home(){
 
     if(loadingState==="loaded" && !nfts.length)
     return(
-        <div>
+      <div className="flex justify-center items-center min-h-screen">
             <p className="px-10 py-10 text-2xl font-bold flex justify-center text-cyan-200">
                 There are currently no items in the Barter System.<br/> Please come back later
             </p>
