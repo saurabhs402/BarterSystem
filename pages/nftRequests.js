@@ -33,7 +33,7 @@ import {
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import Barter from '../artifacts/contracts/Barter.sol/Barter.json'
 
-export default function nftRequests() {
+export default function NftRequests() {
 
     const [nfts,setNfts]=useState([]) 
     const [loadingState,setLoadingState] = useState('not-loaded')

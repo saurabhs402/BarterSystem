@@ -11,7 +11,7 @@ import Barter from "../artifacts/contracts/Barter.sol/Barter.json"
 
 
 
-export default function product() {
+export default function Product() {
   const searchParams = useSearchParams()
     const [nft,setNft]=useState()
     const [metaMaskAccount, setMetaMaskAccount] = useState("")

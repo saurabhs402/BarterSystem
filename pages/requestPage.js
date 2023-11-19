@@ -35,7 +35,7 @@ import {
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import Barter from '../artifacts/contracts/Barter.sol/Barter.json'
 
-export default function requestPage() {
+export default function RequestPage() {
     const searchParams = useSearchParams()
     const router = useRouter();
     // console.log(searchParams.get('data'))
