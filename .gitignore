@@ -40,8 +40,9 @@ typechain-types
 
 # Hardhat files
 cache
-artifacts
+
 
 #js
 # config.js
+.vercel
 
