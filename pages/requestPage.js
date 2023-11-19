@@ -7,11 +7,12 @@ import {useRouter} from 'next/router'
 import styles from '../styles/Home.module.css';
 
 import { useSearchParams } from 'next/navigation'
-
+// import dotenv from "dotenv";
+// dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 
 const {create} =require('ipfs-http-client')
-const projectId=process.env.PROJECT_ID
-const projectSecret=process.env.PROJECT_SECRET_KEY
+const projectId=process.env.NEXT_PUBLIC_PROJECT_ID
+const projectSecret=process.env.NEXT_PUBLIC_PROJECT_SECRET_KEY
 
 
 
@@ -181,9 +182,10 @@ export default function requestPage() {
                 ))
                 }
                 </div> */}
+                {/*   <div className="flex justify-center items-center min-h-screen"> */}
 
                 <h2 className="px-10 py-10 text-2xl font-bold flex justify-center text-cyan-200">Select the NFT with which you would like to exchnage</h2>
-                <div className="grid grid-cols-4 gap-5 pt-6">
+                <div className="grid grid-cols-4 gap-5 pt-6 min-h-screen">
                     {
                         nfts.map((nft,i) => (
                             <div key={i} className="border shadow rounded-xl overflow-hidden">

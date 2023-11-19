@@ -5,8 +5,13 @@ import {useRouter} from 'next/router'
 import Web3Modal from'web3modal'
 
 const {create} =require('ipfs-http-client')
-const projectId=process.env.PROJECT_ID
-const projectSecret=process.env.PROJECT_SECRET_KEY
+
+//import  'dotenv/config'
+// require('dotenv').config()
+//import dotenv from 'dotenv';
+// dotenv.config({ path: path.join(__dirname, '.env') });
+const projectId=process.env.NEXT_PUBLIC_PROJECT_ID
+const projectSecret=process.env.NEXT_PUBLIC_PROJECT_SECRET_KEY
 
 
 
@@ -28,10 +33,19 @@ import NFT from "../artifacts/contracts/NFT.sol/NFT.json"
 import Barter from "../artifacts/contracts/Barter.sol/Barter.json"
 
 export default function CreateItem(){
+  
   const [fileUrl,setFileUrl] = useState(null)
   const [formInput,updateFormInput]=useState({price:"",name:"",description:""})
 
   const router=useRouter()
+  console.log(auth)
+  console.log(typeof(auth))
+  console.log(projectId)
+  console.log(typeof(projectId))
+   
+  console.log(projectSecret)
+  console.log(typeof(projectSecret))
+
   
   async function onChange(e){
     const file=e.target.files[0]

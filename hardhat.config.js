@@ -1,5 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox")
-require('dotenv').config() // deploy contract on network using provider or real node
+require('dotenv').config() // for getting value using process.env deploy contract on network using provider or real node
 require("@nomiclabs/hardhat-etherscan") // see code on explorer
 
 /** @type import('hardhat/config').HardhatUserConfig */

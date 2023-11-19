@@ -28,6 +28,8 @@
     "autoprefixer": "^10.4.14",
     "hardhat": "^2.13.0",
     "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.2.7",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }

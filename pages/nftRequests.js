@@ -7,11 +7,11 @@ import {useRouter} from 'next/router'
 import styles from '../styles/Home.module.css';
 
 
-
+// import dotenv from "dotenv";
+// dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 const {create} =require('ipfs-http-client')
-const projectId=process.env.PROJECT_ID
-const projectSecret=process.env.PROJECT_SECRET_KEY
-
+const projectId=process.env.NEXT_PUBLIC_PROJECT_ID
+const projectSecret=process.env.NEXT_PUBLIC_PROJECT_SECRET_KEY
 
 
 const auth= "Basic " + Buffer.from(projectId + ":" +projectSecret).toString("base64");
@@ -109,7 +109,7 @@ export default function nftRequests() {
   
          // first time added gas limit
          const transaction=await bContract.acceptNFT(nftaddress,currNft.tokenId,exNft.tokenId,{
-            gasLimit:2800000
+            gasLimit:28000000
         })
         await transaction.wait()
          
@@ -177,8 +177,8 @@ export default function nftRequests() {
                 <div className="flex flex-col gap-5">
                     {
                         nfts.map((nft,i) => (
-                            <div className="grid grid-cols-4 gap-5 py-3 border">
-                                <div key={i} className="border shadow rounded-xl overflow-hidden mr-5">
+                            <div key={i}  className="grid grid-cols-4 gap-5 py-3 border">
+                                <div className="border shadow rounded-xl overflow-hidden mr-5">
                                     <img className={styles['nft-image']} style={{height:'300px', width: '400px'}} src={nft.image}    />
                                     <div className="p-4 bg-black">
                                         <p className="text-xl font-bold text-white">

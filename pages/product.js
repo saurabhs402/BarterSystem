@@ -16,6 +16,7 @@ export default function product() {
     const [nft,setNft]=useState()
     const [metaMaskAccount, setMetaMaskAccount] = useState("")
     const [show, setShow] = useState()
+    const router=useRouter()
 
     // console.log(searchParams.get('data'))
     // console.log('line break')
