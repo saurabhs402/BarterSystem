@@ -6,7 +6,7 @@ import Web3Modal from 'web3modal'
 import {useRouter} from 'next/router'
 import { nftaddress,barteraddress } from '../config'
 
-import NFT from "../artifacts/contracts/NFT.sol/NFT.json"
+// import NFT from "../artifacts/contracts/NFT.sol/NFT.json"
 import Barter from "../artifacts/contracts/Barter.sol/Barter.json"
 
 
@@ -85,7 +85,7 @@ export default function product() {
          router.push('/');
     }
     // async function onInit() {
-    //     await window.ethereum.enable();
+    //     await window.ethereum.enable(); // depreceated
     //     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     //     const account = accounts[0]; // wallet address
 

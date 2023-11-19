@@ -10,7 +10,7 @@ const projectSecret=process.env.PROJECT_SECRET_KEY
 
 
 
-const auth= "Basic " + Buffer.from("2WsskFWapjHPkdHRuUrxWKuKITs" + ":" +"6aa70ca5d74fc2ae48315675656f8ff9").toString("base64");
+const auth= "Basic " + Buffer.from(projectId + ":" +projectSecret).toString("base64");
 const client =create({
   host: "ipfs.infura.io",
   port:5001,

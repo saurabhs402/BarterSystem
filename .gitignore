@@ -43,5 +43,5 @@ cache
 artifacts
 
 #js
-config.js
+# config.js
 

@@ -1,7 +1,7 @@
 import"../styles/globals.css"
 import Link from "next/link"
 
-function Marketplace({Component,pageProps}){
+function Barter({Component,pageProps}){
 
    return(
 
@@ -80,4 +80,4 @@ function Marketplace({Component,pageProps}){
 
 
 }
-export default Marketplace
+export default Barter
