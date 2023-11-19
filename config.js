@@ -1,2 +1,2 @@
-export const  barteraddress="0xeA8A6c091aaC19967Dc93cE19Bb77Fea106BcE15"
-export const nftaddress="0x78006Eb09B577D913B14959E9d1C128e92BCCB46"
+export const  barteraddress="0x2b1342B19bb0e6Fc302D9469572767a99Df08522"
+export const nftaddress="0x5b7BA325bA02Fc070C87AFf1d137BBc08106d7cD"
